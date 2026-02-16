@@ -54,6 +54,11 @@
                         <option value="Alto">Alto</option>
                         <option value="CRÍTICO">CRÍTICO</option>
                     </select>
+                     @if (notValidField('secreto')) {
+                    <span class="text-red-500 text-xs italic mt-1 block">
+                        {{ getFieldError('secreto') }}
+                    </span>
+                }
                 </div>
 
                 <div>

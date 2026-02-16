@@ -6,4 +6,6 @@ export const routes: Routes = [
     { path: 'home', component: Home},
     { path: 'missions', loadComponent: () => import('./pages/missions/missions').then(m => m.Missions) },
     { path: 'add-mission', loadComponent: () => import('./pages/new-mission/new-mission').then(m => m.NewMission) },
+    { path: 'login', loadComponent: () => import('./auth/login/login').then(m => m.Login) }
+
 ];

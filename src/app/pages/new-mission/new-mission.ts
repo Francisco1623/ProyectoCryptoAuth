@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ValidatorsService } from '../../auth/services/validators-service';
 
 @Component({
   selector: 'app-new-mission',
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class NewMission {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
+  private validatorService = inject(ValidatorsService);
 
   // Definición del Formulario Reactivo
   misionForm: FormGroup = this.fb.group({
@@ -23,7 +25,7 @@ export class NewMission {
       Validators.required
     ]],
 
-    secreto: ['Bajo', [Validators.required]], // Valor por defecto 'Bajo'
+    secreto: ['Bajo', [Validators.required,this.validatorService.cantBe("CRÍTICO")]], // Valor por defecto 'Bajo'
 
     agenteId: ['', [Validators.required]], // Lo mapeamos a 'agenteId' para la API
 
@@ -55,6 +57,8 @@ export class NewMission {
           return 'Formato inválido. Requerido: XXX-000 (Mayúsculas).';
         case 'palabraProhibida': // <--- Error del Factory
           return `No puedes usar la palabra "${errors['palabraProhibida'].value}" en una misión real.`;
+        case 'cantBe':
+          return `No podemos elegir estado CRÍTICO en el campo ${field}`
         default:
           return 'Error de validación.';
       }
