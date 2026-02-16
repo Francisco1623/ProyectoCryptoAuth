@@ -20,4 +20,12 @@ export class AspirantService {
       })
     }
 
+  addAspirant(newAspirant:Omit<Aspirant,'id'>){
+    return this.httpClient.post<Aspirant>(this.URLBase,newAspirant)
+    .subscribe({
+      next:aspirant=>this._aspirants.update((aspirants)=>[...aspirants,aspirant]),
+      error:error=>console.log(error)
+    })
+  }
+
 }

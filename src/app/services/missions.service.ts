@@ -5,7 +5,7 @@ import { Mission } from '../interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class Missions {
+export class MissionsService {
   
   private URLBase = 'http://localhost:3000/misiones';
   private httpClient = inject(HttpClient);

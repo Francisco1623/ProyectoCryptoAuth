@@ -27,7 +27,9 @@ export class AuthService {
           const {id,email,alias,role,nombre} = jwtDecode<JWTPayload>(token);
           this._user.set({id,email,alias,role,nombre})
         },
-        error:error=>localStorage.removeItem('token_crypto')
+        error:error=>{
+          console.log(error);
+          localStorage.removeItem('token_crypto')}
       })
 
     }
@@ -35,7 +37,7 @@ export class AuthService {
 
   verifyToken(token:string){
     const headers : HttpHeaders = new HttpHeaders().set('Authorization',`Bearer ${token}`)
-    return this.httpClient.get(`${this.URLBase}/missions`,{
+    return this.httpClient.get(`${this.URLBase}/verify`,{
       headers
     })
   }
